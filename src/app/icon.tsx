@@ -1,12 +1,17 @@
 import { ImageResponse } from "next/og";
 
+import { getStudioProfile } from "@/sanity/lib/site";
+import { getStudioInitials } from "@/utils/studio-profile";
+
 export const size = {
   width: 512,
   height: 512
 };
 export const contentType = "image/png";
 
-export default function Icon() {
+export default async function Icon() {
+  const studio = await getStudioProfile();
+
   return new ImageResponse(
     (
       <div
@@ -23,7 +28,7 @@ export default function Icon() {
           letterSpacing: -4
         }}
       >
-        AF
+        {getStudioInitials(studio.name)}
       </div>
     ),
     size

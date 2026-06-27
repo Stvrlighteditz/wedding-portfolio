@@ -1,15 +1,17 @@
 import { ImageResponse } from "next/og";
 
-import { studio } from "@/constants/site";
+import { getStudioProfile } from "@/sanity/lib/site";
 
-export const alt = "Aurelia Films wedding cinematography";
+export const alt = "Wedding cinematography portfolio";
 export const size = {
   width: 1200,
   height: 630
 };
 export const contentType = "image/png";
 
-export default function Image() {
+export default async function Image() {
+  const studio = await getStudioProfile();
+
   return new ImageResponse(
     (
       <div

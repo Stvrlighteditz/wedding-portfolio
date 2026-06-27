@@ -1,13 +1,13 @@
 import type { PortfolioCategory } from "@/types/project";
 
 export const studio = {
-  name: "Aurelia Films",
+  name: "Stvrlight Films",
   tagline: "Luxury wedding films for modern romantics",
-  email: "bookings@aureliafilms.com",
-  phone: "+91 98765 43210",
-  whatsapp: "919876543210",
-  instagram: "https://www.instagram.com/aureliafilms/",
-  instagramHandle: "@aureliafilms",
+  email: "stvrlighteditz40@gmail.com",
+  phone: "+91 9016906161",
+  whatsapp: "919016906161",
+  instagram: "https://www.instagram.com/stvrlight_films/",
+  instagramHandle: "@stvrlight_films",
   location: "Available worldwide",
   heroVideoUrl: "https://vimeo.com/762158302",
   heroPosterUrl:

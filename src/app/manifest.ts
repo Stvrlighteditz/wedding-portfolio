@@ -1,8 +1,10 @@
 import type { MetadataRoute } from "next";
 
-import { studio } from "@/constants/site";
+import { getStudioProfile } from "@/sanity/lib/site";
 
-export default function manifest(): MetadataRoute.Manifest {
+export default async function manifest(): Promise<MetadataRoute.Manifest> {
+  const studio = await getStudioProfile();
+
   return {
     name: `${studio.name} | Wedding Cinematographer`,
     short_name: studio.name,
