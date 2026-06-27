@@ -8,6 +8,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { TestimonialCard } from "@/components/testimonials/testimonial-card";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { testimonialsQuery } from "@/sanity/lib/queries";
+import { getStudioProfile } from "@/sanity/lib/site";
 import type { Testimonial } from "@/types/project";
 
 export const metadata: Metadata = {
@@ -26,15 +27,18 @@ export const metadata: Metadata = {
 };
 
 export default async function TestimonialsPage() {
-  const testimonials = await sanityFetch<Testimonial[]>({
-    query: testimonialsQuery,
-    tags: ["testimonial"],
-    revalidate: 30
-  });
+  const [testimonials, studio] = await Promise.all([
+    sanityFetch<Testimonial[]>({
+      query: testimonialsQuery,
+      tags: ["testimonial"],
+      revalidate: 30
+    }),
+    getStudioProfile()
+  ]);
 
   return (
     <main className="min-h-screen bg-ink text-ivory">
-      <SiteHeader />
+      <SiteHeader studio={studio} />
 
       <section className="luxury-container pt-36 pb-20 md:pt-44">
         <Reveal>
@@ -78,8 +82,8 @@ export default async function TestimonialsPage() {
         )}
       </section>
 
-      <BookingCTA />
-      <SiteFooter />
+      <BookingCTA studio={studio} />
+      <SiteFooter studio={studio} />
     </main>
   );
 }

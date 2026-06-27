@@ -1,7 +1,12 @@
-import { portfolioCategories, studio } from "@/constants/site";
+import { portfolioCategories } from "@/constants/site";
 import { getSiteUrl } from "@/utils/site-url";
+import type { StudioProfile } from "@/utils/studio-profile";
 
-export function StructuredData() {
+type StructuredDataProps = {
+  studio: StudioProfile;
+};
+
+export function StructuredData({ studio }: StructuredDataProps) {
   const siteUrl = getSiteUrl();
   const data = {
     "@context": "https://schema.org",

@@ -15,6 +15,7 @@ import {
   homeProjectsQuery,
   homeTestimonialsQuery
 } from "@/sanity/lib/queries";
+import { getStudioProfile } from "@/sanity/lib/site";
 import type { Project, Testimonial } from "@/types/project";
 
 export const metadata: Metadata = {
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [projects, testimonials] = await Promise.all([
+  const [projects, testimonials, studio] = await Promise.all([
     sanityFetch<Project[]>({
       query: homeProjectsQuery,
       tags: ["project"],
@@ -34,21 +35,22 @@ export default async function HomePage() {
       query: homeTestimonialsQuery,
       tags: ["testimonial"],
       revalidate: 30
-    })
+    }),
+    getStudioProfile()
   ]);
 
   return (
     <main className="min-h-screen bg-ink text-ivory">
-      <SiteHeader />
-      <CinematicHero />
+      <SiteHeader studio={studio} />
+      <CinematicHero studio={studio} />
       <FeaturedFilms projects={projects} />
       <PortfolioCategories projects={projects} />
       <AboutStudio />
       <ServicesSection />
       <TestimonialsSection testimonials={testimonials} />
-      <InstagramPreview projects={projects} />
-      <BookingCTA />
-      <SiteFooter />
+      <InstagramPreview projects={projects} studio={studio} />
+      <BookingCTA studio={studio} />
+      <SiteFooter studio={studio} />
     </main>
   );
 }

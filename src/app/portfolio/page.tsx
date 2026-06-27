@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { PortfolioFilterGrid } from "@/components/projects/portfolio-filter-grid";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { projectsQuery } from "@/sanity/lib/queries";
+import { getStudioProfile } from "@/sanity/lib/site";
 import type { Project } from "@/types/project";
 import { getInitialPortfolioFilter } from "@/utils/category";
 
@@ -33,15 +34,18 @@ type PortfolioPageProps = {
 export default async function PortfolioPage({ searchParams }: PortfolioPageProps) {
   const params = await searchParams;
   const initialFilter = getInitialPortfolioFilter(params?.category);
-  const projects = await sanityFetch<Project[]>({
-    query: projectsQuery,
-    tags: ["project"],
-    revalidate: 30
-  });
+  const [projects, studio] = await Promise.all([
+    sanityFetch<Project[]>({
+      query: projectsQuery,
+      tags: ["project"],
+      revalidate: 30
+    }),
+    getStudioProfile()
+  ]);
 
   return (
     <main className="min-h-screen bg-ink text-ivory">
-      <SiteHeader />
+      <SiteHeader studio={studio} />
       <section className="luxury-container pt-36 pb-20 md:pt-44">
         <p className="text-[0.68rem] font-semibold uppercase tracking-[0.36em] text-champagne">
           Portfolio
@@ -52,8 +56,8 @@ export default async function PortfolioPage({ searchParams }: PortfolioPageProps
       </section>
 
       <PortfolioFilterGrid projects={projects} initialFilter={initialFilter} />
-      <BookingCTA />
-      <SiteFooter />
+      <BookingCTA studio={studio} />
+      <SiteFooter studio={studio} />
     </main>
   );
 }

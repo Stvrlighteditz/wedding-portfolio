@@ -13,43 +13,8 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { Reveal } from "@/components/motion/reveal";
 import { LuxuryButton } from "@/components/ui/luxury-button";
-import { studio } from "@/constants/site";
+import { getStudioProfile } from "@/sanity/lib/site";
 import { createWhatsAppUrl } from "@/utils/whatsapp";
-
-const whatsappUrl = createWhatsAppUrl(
-  "Hi Aurelia Films, I would like to enquire about wedding cinematography availability."
-);
-
-const contactItems = [
-  {
-    label: "WhatsApp",
-    value: studio.phone,
-    href: whatsappUrl,
-    icon: MessageCircle,
-    external: true
-  },
-  {
-    label: "Email",
-    value: studio.email,
-    href: `mailto:${studio.email}`,
-    icon: Mail,
-    external: false
-  },
-  {
-    label: "Phone",
-    value: studio.phone,
-    href: `tel:${studio.phone.replace(/\s/g, "")}`,
-    icon: Phone,
-    external: false
-  },
-  {
-    label: "Instagram",
-    value: "View profile",
-    href: studio.instagram,
-    icon: Camera,
-    external: true
-  }
-] as const;
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -66,10 +31,46 @@ export const metadata: Metadata = {
   }
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const studio = await getStudioProfile();
+  const whatsappUrl = createWhatsAppUrl(
+    `Hi ${studio.name}, I would like to enquire about wedding cinematography availability.`,
+    studio.whatsapp
+  );
+  const contactItems = [
+    {
+      label: "WhatsApp",
+      value: studio.phone,
+      href: whatsappUrl,
+      icon: MessageCircle,
+      external: true
+    },
+    {
+      label: "Email",
+      value: studio.email,
+      href: `mailto:${studio.email}`,
+      icon: Mail,
+      external: false
+    },
+    {
+      label: "Phone",
+      value: studio.phone,
+      href: `tel:${studio.phone.replace(/\s/g, "")}`,
+      icon: Phone,
+      external: false
+    },
+    {
+      label: "Instagram",
+      value: "View profile",
+      href: studio.instagram,
+      icon: Camera,
+      external: true
+    }
+  ] as const;
+
   return (
     <main className="min-h-screen bg-ink text-ivory">
-      <SiteHeader />
+      <SiteHeader studio={studio} />
 
       <section className="luxury-container grid gap-12 pt-36 pb-20 md:pt-44 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] lg:items-start">
         <Reveal>
@@ -112,7 +113,7 @@ export default function ContactPage() {
         </Reveal>
 
         <Reveal delay={0.12}>
-          <ContactForm />
+          <ContactForm studio={studio} />
         </Reveal>
       </section>
 
@@ -179,7 +180,7 @@ export default function ContactPage() {
         </Reveal>
       </section>
 
-      <SiteFooter />
+      <SiteFooter studio={studio} />
     </main>
   );
 }

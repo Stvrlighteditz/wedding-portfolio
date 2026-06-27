@@ -82,7 +82,7 @@ export const homeTestimonialsQuery = groq`
 `;
 
 export const siteSettingsQuery = groq`
-  *[_type == "siteSettings"][0] {
+  *[_type == "siteSettings"] | order(_updatedAt desc)[0] {
     title,
     heroVideoUrl,
     heroPoster{

@@ -2,14 +2,19 @@ import { ArrowRight, MessageCircle } from "lucide-react";
 
 import { Reveal } from "@/components/motion/reveal";
 import { LuxuryButton } from "@/components/ui/luxury-button";
-import { studio } from "@/constants/site";
 import { createWhatsAppUrl } from "@/utils/whatsapp";
+import type { StudioProfile } from "@/utils/studio-profile";
 
-const whatsappUrl = createWhatsAppUrl(
-  "Hi Aurelia Films, I would like to enquire about wedding cinematography availability."
-);
+type BookingCTAProps = {
+  studio: StudioProfile;
+};
 
-export function BookingCTA() {
+export function BookingCTA({ studio }: BookingCTAProps) {
+  const whatsappUrl = createWhatsAppUrl(
+    `Hi ${studio.name}, I would like to enquire about wedding cinematography availability.`,
+    studio.whatsapp
+  );
+
   return (
     <section className="border-t border-white/10 bg-ink py-24 md:py-32">
       <div className="luxury-container">

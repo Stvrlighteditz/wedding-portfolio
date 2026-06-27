@@ -8,9 +8,9 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { VideoEmbed } from "@/components/media/video-embed";
 import { LuxuryButton } from "@/components/ui/luxury-button";
-import { studio } from "@/constants/site";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { projectBySlugQuery } from "@/sanity/lib/queries";
+import { getStudioProfile } from "@/sanity/lib/site";
 import type { Project } from "@/types/project";
 import { formatProjectDate } from "@/utils/date";
 
@@ -19,10 +19,6 @@ type ProjectPageProps = {
     slug: string;
   }>;
 };
-
-const whatsappUrl = `https://wa.me/${studio.whatsapp}?text=${encodeURIComponent(
-  "Hi, I watched your portfolio and would like to enquire about wedding cinematography."
-)}`;
 
 async function getProject(slug: string) {
   return sanityFetch<Project | null>({
@@ -62,15 +58,22 @@ export async function generateMetadata({
 
 export default async function ProjectDetailsPage({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const project = await getProject(slug);
+  const [project, studio] = await Promise.all([
+    getProject(slug),
+    getStudioProfile()
+  ]);
 
   if (!project) {
     notFound();
   }
 
+  const whatsappUrl = `https://wa.me/${studio.whatsapp}?text=${encodeURIComponent(
+    "Hi, I watched your portfolio and would like to enquire about wedding cinematography."
+  )}`;
+
   return (
     <main className="min-h-screen bg-ink text-ivory">
-      <SiteHeader />
+      <SiteHeader studio={studio} />
       <section className="luxury-container pt-32 pb-14 md:pt-40">
         <Link
           href="/portfolio"
@@ -127,8 +130,8 @@ export default async function ProjectDetailsPage({ params }: ProjectPageProps) {
         </LuxuryButton>
       </section>
 
-      <BookingCTA />
-      <SiteFooter />
+      <BookingCTA studio={studio} />
+      <SiteFooter studio={studio} />
     </main>
   );
 }

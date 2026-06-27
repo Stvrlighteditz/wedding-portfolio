@@ -1,14 +1,20 @@
 import { Camera, Mail, MessageCircle, Phone } from "lucide-react";
 import Link from "next/link";
 
-import { navigation, portfolioCategories, studio } from "@/constants/site";
+import { navigation, portfolioCategories } from "@/constants/site";
 import { createWhatsAppUrl } from "@/utils/whatsapp";
+import type { StudioProfile } from "@/utils/studio-profile";
 
-const whatsappUrl = createWhatsAppUrl(
-  "Hi Aurelia Films, I would like to enquire about wedding cinematography."
-);
+type SiteFooterProps = {
+  studio: StudioProfile;
+};
 
-export function SiteFooter() {
+export function SiteFooter({ studio }: SiteFooterProps) {
+  const whatsappUrl = createWhatsAppUrl(
+    `Hi ${studio.name}, I would like to enquire about wedding cinematography.`,
+    studio.whatsapp
+  );
+
   return (
     <footer className="border-t border-white/10 bg-charcoal text-ivory">
       <div className="luxury-container py-14">

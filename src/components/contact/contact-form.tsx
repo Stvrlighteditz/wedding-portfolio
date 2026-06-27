@@ -6,6 +6,7 @@ import { type FormEvent, useMemo, useState } from "react";
 import { LuxuryButton } from "@/components/ui/luxury-button";
 import { portfolioCategories } from "@/constants/site";
 import { createBookingMessage, createWhatsAppUrl } from "@/utils/whatsapp";
+import type { StudioProfile } from "@/utils/studio-profile";
 
 type FormState = {
   name: string;
@@ -29,7 +30,11 @@ const initialState: FormState = {
   message: ""
 };
 
-export function ContactForm() {
+type ContactFormProps = {
+  studio: StudioProfile;
+};
+
+export function ContactForm({ studio }: ContactFormProps) {
   const [form, setForm] = useState<FormState>(initialState);
 
   const whatsappUrl = useMemo(() => {
@@ -43,9 +48,10 @@ export function ContactForm() {
         location: form.location,
         guestCount: form.guestCount,
         message: form.message
-      })
+      }, studio.name),
+      studio.whatsapp
     );
-  }, [form]);
+  }, [form, studio.name, studio.whatsapp]);
 
   function updateField(field: keyof FormState, value: string) {
     setForm((current) => ({ ...current, [field]: value }));

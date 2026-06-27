@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { PageTransition } from "@/components/motion/page-transition";
 import { StructuredData } from "@/components/seo/structured-data";
 import { studio } from "@/constants/site";
+import { getStudioProfile } from "@/sanity/lib/site";
 import { getSiteUrl } from "@/utils/site-url";
 
 import "./globals.css";
@@ -93,15 +94,17 @@ export const viewport: Viewport = {
   themeColor: "#050505"
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: ReactNode;
 }>) {
+  const studioProfile = await getStudioProfile();
+
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body>
-        <StructuredData />
+        <StructuredData studio={studioProfile} />
         <PageTransition>{children}</PageTransition>
       </body>
     </html>

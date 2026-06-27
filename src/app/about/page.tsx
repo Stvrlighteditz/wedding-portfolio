@@ -8,14 +8,10 @@ import { Reveal } from "@/components/motion/reveal";
 import { ServicesSection } from "@/components/home/services-section";
 import { LuxuryButton } from "@/components/ui/luxury-button";
 import { creativeProcess, studioHighlights } from "@/constants/content";
-import { studio } from "@/constants/site";
+import { getStudioProfile } from "@/sanity/lib/site";
 
 const portraitImage =
   "https://images.unsplash.com/photo-1502635385003-ee1e6a1a742d?auto=format&fit=crop&w=1700&q=85";
-
-const whatsappUrl = `https://wa.me/${studio.whatsapp}?text=${encodeURIComponent(
-  "Hi, I would like to enquire about wedding cinematography availability."
-)}`;
 
 export const metadata: Metadata = {
   title: "About",
@@ -32,10 +28,15 @@ export const metadata: Metadata = {
   }
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const studio = await getStudioProfile();
+  const whatsappUrl = `https://wa.me/${studio.whatsapp}?text=${encodeURIComponent(
+    "Hi, I would like to enquire about wedding cinematography availability."
+  )}`;
+
   return (
     <main className="min-h-screen bg-ink text-ivory">
-      <SiteHeader />
+      <SiteHeader studio={studio} />
 
       <section className="luxury-container grid gap-12 pt-36 pb-24 md:pt-44 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.72fr)] lg:items-end">
         <Reveal>
@@ -132,7 +133,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <SiteFooter />
+      <SiteFooter studio={studio} />
     </main>
   );
 }

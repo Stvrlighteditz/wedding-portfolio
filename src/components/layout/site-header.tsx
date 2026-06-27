@@ -6,18 +6,24 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { smoothEase } from "@/constants/motion";
-import { navigation, studio } from "@/constants/site";
+import { navigation } from "@/constants/site";
 import { useLockBodyScroll } from "@/hooks/use-lock-body-scroll";
 import { cn } from "@/utils/cn";
+import type { StudioProfile } from "@/utils/studio-profile";
+import { getStudioInitials } from "@/utils/studio-profile";
 
-const whatsappUrl = `https://wa.me/${studio.whatsapp}?text=${encodeURIComponent(
-  "Hi, I would like to enquire about wedding cinematography availability."
-)}`;
+type SiteHeaderProps = {
+  studio: StudioProfile;
+};
 
-export function SiteHeader() {
+export function SiteHeader({ studio }: SiteHeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
+  const whatsappUrl = `https://wa.me/${studio.whatsapp}?text=${encodeURIComponent(
+    "Hi, I would like to enquire about wedding cinematography availability."
+  )}`;
+  const initials = getStudioInitials(studio.name);
 
   useLockBodyScroll(isOpen);
 
@@ -41,7 +47,7 @@ export function SiteHeader() {
         <div className="mx-auto flex h-20 w-full max-w-[1500px] items-center justify-between px-5 md:px-8 lg:px-10">
           <Link href="/" className="group flex items-center gap-4" aria-label={studio.name}>
             <span className="grid size-10 place-items-center rounded-full border border-champagne/50 bg-ink/40 text-sm font-semibold text-champagne shadow-[0_0_28px_rgba(216,181,109,0.16)] transition group-hover:border-champagne">
-              AF
+              {initials}
             </span>
             <span className="hidden leading-none sm:block">
               <span className="block font-serif text-xl text-ivory">{studio.name}</span>

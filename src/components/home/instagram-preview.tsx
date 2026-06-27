@@ -3,8 +3,8 @@ import Image from "next/image";
 
 import { Reveal } from "@/components/motion/reveal";
 import { LuxuryButton } from "@/components/ui/luxury-button";
-import { studio } from "@/constants/site";
 import type { Project } from "@/types/project";
+import type { StudioProfile } from "@/utils/studio-profile";
 
 const visualMoments = [
   {
@@ -31,9 +31,10 @@ const visualMoments = [
 
 type InstagramPreviewProps = {
   projects: Project[];
+  studio: StudioProfile;
 };
 
-export function InstagramPreview({ projects }: InstagramPreviewProps) {
+export function InstagramPreview({ projects, studio }: InstagramPreviewProps) {
   const featuredProject = projects[0];
   const heroImage =
     featuredProject?.thumbnail?.asset?.url ||

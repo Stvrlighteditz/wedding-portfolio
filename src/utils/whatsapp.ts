@@ -11,13 +11,16 @@ type BookingMessageInput = {
   message?: string;
 };
 
-export function createWhatsAppUrl(message: string) {
-  return `https://wa.me/${studio.whatsapp}?text=${encodeURIComponent(message)}`;
+export function createWhatsAppUrl(message: string, whatsappNumber: string = studio.whatsapp) {
+  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
-export function createBookingMessage(input: BookingMessageInput) {
+export function createBookingMessage(
+  input: BookingMessageInput,
+  studioName: string = studio.name
+) {
   const lines = [
-    "Hi Aurelia Films, I would like to enquire about wedding cinematography.",
+    `Hi ${studioName}, I would like to enquire about wedding cinematography.`,
     "",
     `Name: ${input.name}`,
     input.email ? `Email: ${input.email}` : null,

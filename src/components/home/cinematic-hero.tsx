@@ -6,7 +6,7 @@ import { ArrowDown, ArrowRight, MessageCircle, Play } from "lucide-react";
 import { HeroVideo } from "@/components/media/hero-video";
 import { LuxuryButton } from "@/components/ui/luxury-button";
 import { smoothEase } from "@/constants/motion";
-import { studio } from "@/constants/site";
+import type { StudioProfile } from "@/utils/studio-profile";
 
 const metrics = [
   { value: "120+", label: "weddings filmed" },
@@ -14,9 +14,9 @@ const metrics = [
   { value: "15", label: "day teaser edits" }
 ] as const;
 
-const whatsappUrl = `https://wa.me/${studio.whatsapp}?text=${encodeURIComponent(
-  "Hi, I would like to book a wedding cinematography enquiry."
-)}`;
+type CinematicHeroProps = {
+  studio: StudioProfile;
+};
 
 const stagger: Variants = {
   hidden: {},
@@ -38,7 +38,11 @@ const fadeUp: Variants = {
   }
 };
 
-export function CinematicHero() {
+export function CinematicHero({ studio }: CinematicHeroProps) {
+  const whatsappUrl = `https://wa.me/${studio.whatsapp}?text=${encodeURIComponent(
+    "Hi, I would like to book a wedding cinematography enquiry."
+  )}`;
+
   return (
     <section className="relative isolate min-h-[100svh] overflow-hidden bg-ink text-ivory">
       <HeroVideo posterUrl={studio.heroPosterUrl} videoUrl={studio.heroVideoUrl} />
