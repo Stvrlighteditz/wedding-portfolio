@@ -45,7 +45,7 @@ export default async function HomePage() {
       <CinematicHero studio={studio} />
       <FeaturedFilms projects={projects} />
       <PortfolioCategories projects={projects} />
-      <AboutStudio />
+      <AboutStudio studio={studio} />
       <ServicesSection />
       <TestimonialsSection testimonials={testimonials} />
       <InstagramPreview projects={projects} studio={studio} />

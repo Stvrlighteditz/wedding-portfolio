@@ -4,11 +4,16 @@ import Image from "next/image";
 import { Reveal } from "@/components/motion/reveal";
 import { LuxuryButton } from "@/components/ui/luxury-button";
 import { studioHighlights } from "@/constants/content";
+import type { StudioProfile } from "@/utils/studio-profile";
 
 const studioImage =
   "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1600&q=85";
 
-export function AboutStudio() {
+type AboutStudioProps = {
+  studio: StudioProfile;
+};
+
+export function AboutStudio({ studio }: AboutStudioProps) {
   return (
     <section className="border-t border-white/10 bg-ink py-24 md:py-32">
       <div className="luxury-container grid gap-12 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1fr)] lg:items-center">
@@ -40,7 +45,7 @@ export function AboutStudio() {
 
           <Reveal delay={0.1}>
             <p className="mt-7 max-w-2xl text-base leading-8 text-ivory/68 md:text-lg">
-              Aurelia Films creates wedding stories with the restraint of
+              {studio.name} creates wedding stories with the restraint of
               editorial cinema and the warmth of documentary memory. Every
               frame is guided by feeling, composition, pacing, and the small
               details that make a celebration unmistakably yours.

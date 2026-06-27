@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: "/contact"
   },
   openGraph: {
-    title: "Contact Aurelia Films",
+    title: "Contact Stvrlight Films",
     description:
       "Enquire about wedding cinematography availability, films, teasers, reels, and full wedding coverage.",
     url: "/contact"

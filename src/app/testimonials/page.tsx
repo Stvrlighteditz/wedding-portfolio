@@ -14,14 +14,14 @@ import type { Testimonial } from "@/types/project";
 export const metadata: Metadata = {
   title: "Testimonials",
   description:
-    "Client words from couples who trusted Aurelia Films with their wedding story.",
+    "Client words from couples who trusted Stvrlight Films with their wedding story.",
   alternates: {
     canonical: "/testimonials"
   },
   openGraph: {
     title: "Testimonials",
     description:
-      "Client words from couples who trusted Aurelia Films with their wedding story.",
+      "Client words from couples who trusted Stvrlight Films with their wedding story.",
     url: "/testimonials"
   }
 };

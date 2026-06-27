@@ -16,12 +16,12 @@ const portraitImage =
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Meet Aurelia Films, a luxury wedding cinematography studio crafting elegant films for modern couples.",
+    "Meet Stvrlight Films, a luxury wedding cinematography studio crafting elegant films for modern couples.",
   alternates: {
     canonical: "/about"
   },
   openGraph: {
-    title: "About Aurelia Films",
+    title: "About Stvrlight Films",
     description:
       "A luxury wedding cinematography studio crafting elegant films for modern couples.",
     url: "/about"
@@ -41,7 +41,7 @@ export default async function AboutPage() {
       <section className="luxury-container grid gap-12 pt-36 pb-24 md:pt-44 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.72fr)] lg:items-end">
         <Reveal>
           <p className="text-[0.68rem] font-semibold uppercase tracking-[0.36em] text-champagne">
-            About Aurelia Films
+            About {studio.name}
           </p>
           <h1 className="mt-5 max-w-5xl font-serif text-6xl leading-[0.9] text-balance md:text-8xl">
             Wedding cinema with restraint, intimacy, and atmosphere.

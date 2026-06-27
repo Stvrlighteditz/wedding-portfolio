@@ -5,7 +5,7 @@ import { SanityStudio } from "@/components/studio/sanity-studio";
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "Content Studio | Aurelia Films",
+  title: "Content Studio | Stvrlight Films",
   robots: {
     index: false,
     follow: false
